@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCart } from './CartProvider'
+import { cartHeaders } from '@/lib/cart-token'
 import { formatMoney } from '@/lib/utils'
 import { trackEvent } from '@/lib/analytics'
 
@@ -139,7 +140,9 @@ export function CheckoutForm({
     try {
       const response = await fetch('/api/orders', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        // Carry the cart token so the server resolves the same bag the
+        // customer is looking at, even when cookies are blocked.
+        headers: cartHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify({
           ...form,
           addressId: form.addressId || null,

@@ -1,6 +1,11 @@
+'use client'
+
 import Link from 'next/link'
+import { useState } from 'react'
 import { discountPercent, formatMoney, srcSetFor } from '@/lib/utils'
 import { Stars } from './Stars'
+import { useCart } from './CartProvider'
+import { trackEvent } from '@/lib/analytics'
 
 interface ProductCardProps {
   product: {
@@ -21,6 +26,11 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, eager = false }: ProductCardProps) {
+  const { addItem } = useCart()
+  const [adding, setAdding] = useState(false)
+  const [justAdded, setJustAdded] = useState(false)
+  const [message, setMessage] = useState<string | null>(null)
+
   const image = product.images[0]
   const inStock = product.variants.some((variant) => variant.stock > 0)
   const rating = product.reviews.length
@@ -28,6 +38,32 @@ export function ProductCard({ product, eager = false }: ProductCardProps) {
     : 0
   const discount = discountPercent(product.price, product.compareAtPrice)
   const isNew = Date.now() - new Date(product.createdAt).getTime() < 1000 * 60 * 60 * 24 * 30
+
+  /** Adds the first size that still has stock, so a card click is never needed. */
+  const quickAdd = async () => {
+    if (adding) return
+    const variant = product.variants.find((entry) => entry.stock > 0)
+    if (!variant) {
+      setMessage('Sold out')
+      return
+    }
+    setAdding(true)
+    const result = await addItem({ productId: product.id, variantId: variant.id, quantity: 1 })
+    setAdding(false)
+    if (result.ok) {
+      setJustAdded(true)
+      setMessage(`${product.name} (${variant.name}) added to cart`)
+      trackEvent('AddToCart', {
+        value: product.price,
+        contentIds: [product.id],
+        contentType: 'product',
+        numItems: 1,
+      })
+      window.setTimeout(() => setJustAdded(false), 2500)
+    } else {
+      setMessage(result.message || 'Could not add to cart')
+    }
+  }
 
   return (
     <article className="product-card">
@@ -74,6 +110,22 @@ export function ProductCard({ product, eager = false }: ProductCardProps) {
             </Link>
           ) : null}
         </div>
+
+        <button
+          type="button"
+          className={justAdded ? 'btn btn--sm btn--ok btn--block mt-2' : 'btn btn--sm btn--ghost btn--block mt-2'}
+          onClick={quickAdd}
+          disabled={!inStock || adding}
+          aria-label={`Add ${product.name} to cart`}
+        >
+          {adding ? 'Adding…' : !inStock ? 'Sold out' : justAdded ? '✓ Added' : 'Add to cart'}
+        </button>
+
+        {message ? (
+          <p className="small" role="status" style={{ color: justAdded ? 'var(--leaf-600)' : 'var(--berry-600)' }}>
+            {message}
+          </p>
+        ) : null}
       </div>
     </article>
   )

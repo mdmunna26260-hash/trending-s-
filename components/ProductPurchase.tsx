@@ -1,6 +1,8 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useCart } from './CartProvider'
 import { Stars } from './Stars'
 import { discountPercent, formatMoney, srcSetFor } from '@/lib/utils'
@@ -36,6 +38,7 @@ interface ProductPurchaseProps {
 
 export function ProductPurchase({ product, siblings, isLoggedIn }: ProductPurchaseProps) {
   const { addItem } = useCart()
+  const router = useRouter()
   const [activeImage, setActiveImage] = useState(0)
   const [variantId, setVariantId] = useState<string | null>(
     product.variants.find((variant) => variant.stock > 0)?.id ?? product.variants[0]?.id ?? null,
@@ -43,6 +46,8 @@ export function ProductPurchase({ product, siblings, isLoggedIn }: ProductPurcha
   const [quantity, setQuantity] = useState(1)
   const [status, setStatus] = useState<string | null>(null)
   const [adding, setAdding] = useState(false)
+  const [buying, setBuying] = useState(false)
+  const [justAdded, setJustAdded] = useState(false)
 
   const variant = useMemo(
     () => product.variants.find((entry) => entry.id === variantId) ?? null,
@@ -65,22 +70,43 @@ export function ProductPurchase({ product, siblings, isLoggedIn }: ProductPurcha
   }, [product.id])
 
   const handleAdd = async () => {
-    if (!variantId) return
+    if (!variantId || adding) return
     setAdding(true)
     const result = await addItem({ productId: product.id, variantId, quantity })
     setAdding(false)
     if (result.ok) {
-      setStatus('Added to your bag')
+      setJustAdded(true)
+      setStatus(`${quantity} × ${product.name} added to your cart`)
       trackEvent('AddToCart', {
         value: unitPrice * quantity,
         contentIds: [product.id],
         contentType: 'product',
         numItems: quantity,
       })
-      setTimeout(() => setStatus(null), 4000)
+      window.setTimeout(() => setJustAdded(false), 4000)
     } else {
-      setStatus(result.message || 'Could not add to bag')
+      setJustAdded(false)
+      setStatus(result.message || 'Could not add to cart')
     }
+  }
+
+  /** Adds the current selection and goes straight to checkout. */
+  const handleBuyNow = async () => {
+    if (!variantId || buying) return
+    setBuying(true)
+    const result = await addItem({ productId: product.id, variantId, quantity })
+    setBuying(false)
+    if (result.ok) {
+      trackEvent('AddToCart', {
+        value: unitPrice * quantity,
+        contentIds: [product.id],
+        contentType: 'product',
+        numItems: quantity,
+      })
+      router.push('/checkout')
+      return
+    }
+    setStatus(result.message || 'Could not add to cart')
   }
 
   const toggleWishlist = async () => {
@@ -231,12 +257,22 @@ export function ProductPurchase({ product, siblings, isLoggedIn }: ProductPurcha
 
           <button
             type="button"
-            className="btn btn--lg grow"
+            className={justAdded ? 'btn btn--lg btn--ok grow' : 'btn btn--lg grow'}
             onClick={handleAdd}
-            disabled={outOfStock || adding}
+            disabled={outOfStock || adding || buying}
             style={{ flex: '1 1 200px' }}
           >
-            {adding ? 'Adding…' : outOfStock ? 'Sold out' : 'Add to bag'}
+            {adding ? 'Adding…' : outOfStock ? 'Sold out' : justAdded ? '✓ Added to cart' : 'Add to cart'}
+          </button>
+
+          <button
+            type="button"
+            className="btn btn--lg btn--ghost"
+            onClick={handleBuyNow}
+            disabled={outOfStock || adding || buying}
+            style={{ flex: '1 1 140px' }}
+          >
+            {buying ? 'Adding…' : 'Buy now'}
           </button>
 
           {isLoggedIn ? (
@@ -247,8 +283,16 @@ export function ProductPurchase({ product, siblings, isLoggedIn }: ProductPurcha
         </div>
 
         {status ? (
-          <p className="alert alert--ok" role="status">
+          <p className={justAdded ? 'alert alert--ok' : 'alert alert--warn'} role="status">
             {status}
+            {justAdded ? (
+              <>
+                {' — '}
+                <Link href="/cart" className="link-underline">
+                  view cart
+                </Link>
+              </>
+            ) : null}
           </p>
         ) : null}
 

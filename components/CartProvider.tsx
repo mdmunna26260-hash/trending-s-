@@ -2,10 +2,12 @@
 
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import type { CartView } from '@/lib/cart'
+import { cartHeaders, rememberCartToken } from '@/lib/cart-token'
 
 interface CartContextValue {
   cart: CartView | null
   loading: boolean
+  error: string | null
   refresh: () => Promise<void>
   addItem: (input: { productId: string; variantId?: string | null; quantity?: number }) => Promise<{ ok: boolean; message?: string }>
   updateItem: (itemId: string, quantity: number) => Promise<void>
@@ -20,14 +22,21 @@ const EVENT = 'cart:updated'
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartView | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   const refresh = useCallback(async () => {
     try {
-      const response = await fetch('/api/cart', { cache: 'no-store' })
+      const response = await fetch('/api/cart', { cache: 'no-store', headers: cartHeaders() })
       const payload = await response.json()
-      if (payload.success) setCart(payload.data)
+      if (payload.success) {
+        rememberCartToken(payload.data?.token)
+        setCart(payload.data)
+        setError(null)
+      } else {
+        setError(payload.error || 'Could not load your bag')
+      }
     } catch {
-      /* ignore */
+      setError('Could not reach the server')
     } finally {
       setLoading(false)
     }
@@ -45,12 +54,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       try {
         const response = await fetch('/api/cart', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: cartHeaders({ 'Content-Type': 'application/json' }),
           body: JSON.stringify(input),
         })
         const payload = await response.json()
         if (payload.success) {
+          rememberCartToken(payload.data?.token)
           setCart(payload.data)
+          setError(null)
           window.dispatchEvent(new Event(EVENT))
           return { ok: true }
         }
@@ -65,20 +76,22 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const updateItem = useCallback<CartContextValue['updateItem']>(async (itemId, quantity) => {
     const response = await fetch(`/api/cart/items/${itemId}`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: cartHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({ quantity }),
     })
     const payload = await response.json()
     if (payload.success) {
+      rememberCartToken(payload.data?.token)
       setCart(payload.data)
       window.dispatchEvent(new Event(EVENT))
     }
   }, [])
 
   const removeItem = useCallback<CartContextValue['removeItem']>(async (itemId) => {
-    const response = await fetch(`/api/cart/items/${itemId}`, { method: 'DELETE' })
+    const response = await fetch(`/api/cart/items/${itemId}`, { method: 'DELETE', headers: cartHeaders() })
     const payload = await response.json()
     if (payload.success) {
+      rememberCartToken(payload.data?.token)
       setCart(payload.data)
       window.dispatchEvent(new Event(EVENT))
     }
@@ -87,11 +100,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const applyCoupon = useCallback<CartContextValue['applyCoupon']>(async (code) => {
     const response = await fetch('/api/cart/coupon', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: cartHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({ code }),
     })
     const payload = await response.json()
     if (payload.success) {
+      rememberCartToken(payload.data?.token)
       setCart(payload.data)
       window.dispatchEvent(new Event(EVENT))
       return { ok: true }
@@ -100,7 +114,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   return (
-    <CartContext.Provider value={{ cart, loading, refresh, addItem, updateItem, removeItem, applyCoupon }}>
+    <CartContext.Provider value={{ cart, loading, error, refresh, addItem, updateItem, removeItem, applyCoupon }}>
       {children}
     </CartContext.Provider>
   )

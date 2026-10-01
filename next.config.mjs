@@ -1,6 +1,21 @@
 /** @type {import('next').NextConfig} */
+
+/**
+ * Extra origins the dev server may serve `/_next/*` assets to.
+ *
+ * Needed when the storefront is previewed through a proxy domain (Arena's
+ * `*.e2b.app` preview, a staging tunnel, …) instead of plain localhost — the
+ * browser then sends a cross-origin Origin and Next.js would otherwise log a
+ * warning. Comma-separated; subdomain wildcards are allowed.
+ */
+const devOrigins = (process.env.NEXT_DEV_ORIGINS || '*.e2b.app,localhost,127.0.0.1')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean)
+
 const nextConfig = {
   reactStrictMode: true,
+  ...(devOrigins.length ? { allowedDevOrigins: devOrigins } : {}),
   poweredByHeader: false,
   compress: true,
   productionBrowserSourceMaps: false,

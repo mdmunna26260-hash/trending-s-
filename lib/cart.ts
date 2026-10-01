@@ -1,6 +1,7 @@
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import { prisma } from './db'
 import { CART_COOKIE } from './auth'
+import { CART_TOKEN_HEADER } from './cart-token'
 import { randomToken } from './crypto'
 import { ApiError } from './http'
 import { getSettings, type StoreSettings } from './settings'
@@ -48,18 +49,41 @@ export interface CartView {
   totals: CartTotals
 }
 
-async function resolveToken(): Promise<string> {
-  const store = cookies()
-  const existing = store.get(CART_COOKIE)?.value
-  if (existing) return existing
-  const token = randomToken(24)
-  store.set(CART_COOKIE, token, {
+function cartCookieOptions() {
+  return {
     httpOnly: true,
-    sameSite: 'lax',
+    sameSite: 'lax' as const,
     secure: process.env.NODE_ENV === 'production',
     path: '/',
     maxAge: 60 * 60 * 24 * 60,
-  })
+  }
+}
+
+/**
+ * Resolves the cart token for the current request.
+ *
+ * Order of preference:
+ *   1. the `x-cart-token` request header, which the browser sends from
+ *      localStorage — this is what keeps guest carts working when the cookie
+ *      cannot be stored at all;
+ *   2. the `rv_cart_token` cookie;
+ *   3. a freshly generated token.
+ *
+ * The cookie is always rewritten so server-rendered pages (checkout, order
+ * placement) resolve the very same cart.
+ */
+async function resolveToken(): Promise<string> {
+  const store = cookies()
+  const headerToken = headers().get(CART_TOKEN_HEADER)?.trim()
+  const existing = headerToken || store.get(CART_COOKIE)?.value
+  if (existing) {
+    if (store.get(CART_COOKIE)?.value !== existing) {
+      store.set(CART_COOKIE, existing, cartCookieOptions())
+    }
+    return existing
+  }
+  const token = randomToken(24)
+  store.set(CART_COOKIE, token, cartCookieOptions())
   return token
 }
 

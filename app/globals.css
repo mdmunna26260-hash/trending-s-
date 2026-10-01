@@ -536,6 +536,13 @@ h3 {
   --btn-border: var(--berry-600);
 }
 
+/* Confirmation state for "added to cart". */
+.btn--ok {
+  --btn-bg: var(--leaf-600);
+  --btn-border: var(--leaf-600);
+  --btn-fg: #ffffff;
+}
+
 .btn--block {
   width: 100%;
 }
@@ -1223,8 +1230,8 @@ h3 {
   background: var(--surface);
 }
 
-.alert--ok { border-left-color: var(--leaf-600); }
-.alert--warn { border-left-color: var(--brass-500); }
+.alert--ok { border-left-color: var(--leaf-600); background: var(--leaf-100); }
+.alert--warn { border-left-color: var(--brass-500); background: var(--brass-100); }
 .alert--danger { border-left-color: var(--berry-600); }
 .alert--info { border-left-color: var(--sky-600); }
 
