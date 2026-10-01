@@ -1,0 +1,44 @@
+{
+  "name": "trending-s-",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-ready e-commerce storefront and admin panel (Next.js 14, Prisma, PostgreSQL)",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "node scripts/prisma.mjs generate && next build",
+    "start": "node scripts/start.mjs",
+    "typecheck": "tsc --noEmit",
+    "db:up": "node scripts/db-up.mjs",
+    "db:down": "node scripts/db-down.mjs",
+    "db:push": "node scripts/prisma.mjs db push",
+    "db:migrate": "node scripts/prisma.mjs migrate dev",
+    "db:deploy": "node scripts/prisma.mjs migrate deploy",
+    "db:generate": "node scripts/prisma.mjs generate",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:studio": "node scripts/prisma.mjs studio"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "bcryptjs": "^2.4.3",
+    "next": "^14.2.35",
+    "nodemailer": "^6.10.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.33.5",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^22.20.4",
+    "@types/nodemailer": "^6.4.24",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "embedded-postgres": "^18.4.0-beta.17",
+    "prisma": "^5.22.0",
+    "tsx": "^4.19.4",
+    "typescript": "^5.7.3"
+  }
+}
