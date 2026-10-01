@@ -31,7 +31,10 @@ export default async function ShopLayout({ children }: { children: React.ReactNo
       <a href="#main" className="skip-link">
         Skip to content
       </a>
-      <StorefrontHeader categories={categories.map((category) => ({ name: category.name, slug: category.slug }))} />
+      <StorefrontHeader
+        announcement={settings.announcement}
+        categories={categories.map((category) => ({ name: category.name, slug: category.slug }))}
+      />
       <main id="main" style={{ flex: 1 }}>
         {children}
       </main>

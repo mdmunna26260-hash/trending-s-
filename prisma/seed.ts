@@ -29,6 +29,7 @@ interface SeedProduct {
   details: string
   image: string
   colorGroup?: string
+  hexColor?: string
   sizes: string[]
   stock: number[]
   featured?: boolean
@@ -48,6 +49,7 @@ const PRODUCTS: SeedProduct[] = [
       'Cotton-viscose blend · Camp collar · Single patch pocket · Curved hem · Machine wash cold · Imported',
     image: 'mustard-stripe-shirt.png',
     colorGroup: 'stripe-shirt',
+    hexColor: '#c9a24a',
     sizes: ['S', 'M', 'L', 'XL'],
     stock: [6, 12, 9, 4],
     featured: true,
@@ -64,6 +66,7 @@ const PRODUCTS: SeedProduct[] = [
     details: 'Textured cotton blend · Point collar · Slim fit · Machine wash cold · Imported',
     image: 'black-textured-shirt.png',
     colorGroup: 'textured-shirt',
+    hexColor: '#8f9aa5',
     sizes: ['S', 'M', 'L', 'XL'],
     stock: [4, 8, 7, 3],
     featured: true,
@@ -80,6 +83,7 @@ const PRODUCTS: SeedProduct[] = [
     details: 'Textured cotton blend · Point collar · Slim fit · Machine wash cold · Imported',
     image: 'white-textured-shirt.png',
     colorGroup: 'textured-shirt',
+    hexColor: '#8f9aa5',
     sizes: ['S', 'M', 'L', 'XL'],
     stock: [5, 10, 6, 2],
   },
@@ -95,6 +99,7 @@ const PRODUCTS: SeedProduct[] = [
     details: '100% slub linen · Camp collar · Relaxed fit · Machine wash cold · Imported',
     image: 'brown-slub-linen-shirt.png',
     colorGroup: 'slub-linen-shirt',
+    hexColor: '#8a6543',
     sizes: ['S', 'M', 'L', 'XL'],
     stock: [3, 9, 11, 5],
     featured: true,
@@ -110,6 +115,7 @@ const PRODUCTS: SeedProduct[] = [
     details: 'Textured cotton blend · Point collar · Slim fit · Machine wash cold · Imported',
     image: 'beige-textured-shirt.png',
     colorGroup: 'textured-shirt',
+    hexColor: '#8f9aa5',
     sizes: ['S', 'M', 'L', 'XL'],
     stock: [2, 6, 8, 4],
   },
@@ -123,6 +129,7 @@ const PRODUCTS: SeedProduct[] = [
     details: 'Textured cotton blend · Point collar · Slim fit · Machine wash cold · Imported',
     image: 'light-blue-textured-shirt.png',
     colorGroup: 'textured-shirt',
+    hexColor: '#8f9aa5',
     sizes: ['S', 'M', 'L', 'XL'],
     stock: [4, 7, 5, 3],
   },
@@ -138,6 +145,7 @@ const PRODUCTS: SeedProduct[] = [
     details: 'Stone-washed cotton denim · Straight leg · Mid rise · Five pocket · Machine wash cold',
     image: 'light-blue-jeans.png',
     colorGroup: 'straight-jeans',
+    hexColor: '#7c96b4',
     sizes: ['30', '32', '34', '36'],
     stock: [5, 9, 8, 4],
     featured: true,
@@ -153,6 +161,7 @@ const PRODUCTS: SeedProduct[] = [
     details: 'Black cotton denim · Slim tapered leg · Mid rise · Machine wash cold',
     image: 'black-jeans.png',
     colorGroup: 'slim-jeans',
+    hexColor: '#3a3f45',
     sizes: ['30', '32', '34', '36'],
     stock: [3, 7, 6, 2],
     featured: true,
@@ -167,6 +176,7 @@ const PRODUCTS: SeedProduct[] = [
     details: 'Washed grey cotton denim · Slim tapered leg · Mid rise · Machine wash cold',
     image: 'grey-jeans.png',
     colorGroup: 'slim-jeans',
+    hexColor: '#3a3f45',
     sizes: ['30', '32', '34', '36'],
     stock: [4, 6, 5, 3],
   },
@@ -180,6 +190,7 @@ const PRODUCTS: SeedProduct[] = [
     details: 'Stone blue cotton denim · Straight leg · Mid rise · Machine wash cold',
     image: 'stone-blue-jeans.png',
     colorGroup: 'straight-jeans',
+    hexColor: '#7c96b4',
     sizes: ['30', '32', '34', '36'],
     stock: [2, 5, 7, 4],
   },
@@ -259,6 +270,7 @@ async function main() {
           create: seed.sizes.map((size, variantIndex) => ({
             name: size,
             colorFamily: seed.colorGroup,
+            hexColor: seed.hexColor,
             sku: `${seed.slug.toUpperCase()}-${size}`,
             stock: seed.stock[variantIndex] ?? 0,
             lowStockAt: 3,

@@ -13,7 +13,13 @@ const NAV = [
   { href: '/contact', label: 'Contact' },
 ]
 
-export function StorefrontHeader({ categories }: { categories: Array<{ name: string; slug: string }> }) {
+export function StorefrontHeader({
+  announcement,
+  categories,
+}: {
+  announcement: string
+  categories: Array<{ name: string; slug: string }>
+}) {
   const pathname = usePathname()
   const router = useRouter()
   const { cart } = useCart()
@@ -27,7 +33,7 @@ export function StorefrontHeader({ categories }: { categories: Array<{ name: str
 
   return (
     <>
-      <div className="announcement">Free delivery over ৳2,000 · Cash on delivery nationwide · Dhaka dispatch in 24h</div>
+      {announcement ? <div className="announcement">{announcement}</div> : null}
       <header className="site-header">
         <div className="container site-header__inner">
           <Link href="/" className="brand" aria-label="Home">

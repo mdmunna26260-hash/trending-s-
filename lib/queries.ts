@@ -38,7 +38,7 @@ export async function getFacets(categorySlug?: string) {
   const where: Prisma.ProductWhereInput = { isActive: true, deletedAt: null }
   if (categorySlug) where.category = { slug: categorySlug }
 
-  const [brands, sizes, colors, priceRange] = await Promise.all([
+  const [brands, sizes, colors, colorGroups, priceRange] = await Promise.all([
     prisma.product.findMany({ where, distinct: ['brand'], select: { brand: true } }),
     prisma.productVariant.findMany({
       where: { isActive: true, product: where },
@@ -51,13 +51,37 @@ export async function getFacets(categorySlug?: string) {
       distinct: ['colorFamily'],
       select: { colorFamily: true, hexColor: true },
     }),
+    prisma.product.findMany({
+      where: { ...where, colorGroup: { not: null } },
+      distinct: ['colorGroup'],
+      select: { colorGroup: true, name: true },
+    }),
     prisma.product.aggregate({ where, _min: { price: true }, _max: { price: true } }),
   ])
+
+  const labelFor = (value: string) =>
+    value
+      .split('-')
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(' ')
+
+  const hexByGroup = new Map<string, string>()
+  for (const row of colors) {
+    if (row.colorFamily && row.hexColor && !hexByGroup.has(row.colorFamily)) {
+      hexByGroup.set(row.colorFamily, row.hexColor)
+    }
+  }
 
   return {
     brands: brands.map((row) => row.brand).filter((brand): brand is string => Boolean(brand)).sort(),
     sizes: sizes.map((row) => row.name),
-    colors: colors.filter((row) => row.colorFamily).map((row) => ({ name: row.colorFamily!, hex: row.hexColor })),
+    colors: colorGroups
+      .filter((row) => row.colorGroup)
+      .map((row) => ({
+        value: row.colorGroup!,
+        name: labelFor(row.colorGroup!),
+        hex: hexByGroup.get(row.colorGroup!) ?? null,
+      })),
     minPrice: priceRange._min.price ?? 0,
     maxPrice: priceRange._max.price ?? 0,
   }

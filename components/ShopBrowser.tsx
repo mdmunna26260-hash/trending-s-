@@ -9,7 +9,7 @@ import type { ProductFilters } from '@/lib/queries'
 export interface Facets {
   brands: string[]
   sizes: string[]
-  colors: Array<{ name: string; hex: string | null }>
+  colors: Array<{ value: string; name: string; hex: string | null }>
   minPrice: number
   maxPrice: number
 }
@@ -224,11 +224,11 @@ export function ShopBrowser({
               <div className="chip-row">
                 {facets.colors.map((color) => (
                   <button
-                    key={color.name}
+                    key={color.value}
                     type="button"
                     className="chip chip--color"
-                    aria-pressed={colors.includes(color.name)}
-                    onClick={() => toggle(color.name, colors, setColors)}
+                    aria-pressed={colors.includes(color.value)}
+                    onClick={() => toggle(color.value, colors, setColors)}
                   >
                     {color.hex ? <span className="swatch" style={{ background: color.hex }} /> : null}
                     {color.name}
