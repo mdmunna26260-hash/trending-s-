@@ -58,10 +58,21 @@ export function initials(name: string): string {
 
 const RESPONSIVE_WIDTHS = [400, 800, 1200, 1600]
 
-/** Builds a srcset string for an uploaded WebP family. */
+/**
+ * Builds a srcset string for an uploaded WebP family.
+ *
+ * The stored path encodes the largest derivative that was actually written
+ * (e.g. `…-1200.webp`), so only widths that exist are advertised — never a
+ * size the image pipeline skipped, which would 404.
+ */
 export function srcSetFor(imagePath: string): string {
   const match = /^(.*)-(\d+)\.webp$/.exec(imagePath)
   if (!match) return imagePath
-  const [, base] = match
-  return RESPONSIVE_WIDTHS.map((width) => `${base}-${width}.webp ${width}w`).join(', ')
+  const [, base, largest] = match
+  const largestWidth = Number(largest)
+  if (!Number.isFinite(largestWidth) || largestWidth <= 0) return imagePath
+  const widths = RESPONSIVE_WIDTHS.filter((width) => width <= largestWidth)
+  // Sources smaller than the smallest step still deserve a usable srcset.
+  if (!widths.length) widths.push(largestWidth)
+  return widths.map((width) => `${base}-${width}.webp ${width}w`).join(', ')
 }

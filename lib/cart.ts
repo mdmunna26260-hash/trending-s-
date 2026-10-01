@@ -259,7 +259,7 @@ export async function syncComboGifts(cartId: string) {
       const owned = items
         .filter((item) => item.productId === entry.productId)
         .reduce((total, item) => total + item.quantity, 0)
-      return sum + Math.min(owned, entry.quantity)
+      return sum + owned
     }, 0)
     const sets = Math.floor(qualifyingUnits / Math.max(1, combo.buyCount))
     if (sets > 0) {

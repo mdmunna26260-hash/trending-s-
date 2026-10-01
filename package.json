@@ -15,6 +15,7 @@
     "db:deploy": "node scripts/prisma.mjs migrate deploy",
     "db:generate": "node scripts/prisma.mjs generate",
     "db:seed": "tsx prisma/seed.ts",
+    "db:query": "node scripts/db-query.mjs",
     "db:studio": "node scripts/prisma.mjs studio"
   },
   "prisma": {

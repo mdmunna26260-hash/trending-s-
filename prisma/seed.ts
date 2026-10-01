@@ -245,10 +245,34 @@ async function main() {
   const productBySlug: Record<string, { id: string; price: number; name: string }> = {}
   for (const [index, seed] of PRODUCTS.entries()) {
     const image = await seedImage(seed.image)
-    const product = await prisma.product.upsert({
+    // Keep the seed idempotent: an existing product keeps its data, but if it
+    // somehow has no image yet we attach one so the catalog never ends up with
+    // a placeholder product.
+    const existingProduct = await prisma.product.findUnique({
       where: { slug: seed.slug },
-      update: {},
-      create: {
+      select: { id: true, price: true, name: true, images: { select: { id: true } } },
+    })
+    if (existingProduct) {
+      if (image && existingProduct.images.length === 0) {
+        await prisma.productImage.create({
+          data: {
+            productId: existingProduct.id,
+            path: image.path,
+            width: image.width,
+            height: image.height,
+            altText: seed.name,
+          },
+        })
+      }
+      productBySlug[seed.slug] = {
+        id: existingProduct.id,
+        price: existingProduct.price,
+        name: existingProduct.name,
+      }
+      continue
+    }
+    const product = await prisma.product.create({
+      data: {
         name: seed.name,
         slug: seed.slug,
         brand: seed.brand,

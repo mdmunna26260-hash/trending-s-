@@ -54,7 +54,8 @@ All credentials come from environment variables — nothing is hardcoded in appl
 | `npm run db:push` | sync schema without migrations |
 | `npm run db:migrate` | create a development migration |
 | `npm run db:deploy` | apply migrations (production) |
-| `npm run db:seed` | seed/reseed data |
+| `npm run db:seed` | seed/reseed data (idempotent — safe to re-run) |
+| `npm run db:query` | run a one-off SQL query against the database |
 | `npm run db:studio` | Prisma Studio |
 
 ---
