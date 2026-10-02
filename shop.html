@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop All — Trendings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="shop.css">
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+    <span>Free delivery on orders over ৳3,000</span>
+    <div class="top-bar-links">
+        <a href="#">WhatsApp</a>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+    </div>
+</div>
+
+<!-- Header -->
+<header class="header" id="header">
+    <div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <a href="index.html" class="logo">TRENDINGS</a>
+        <nav class="nav" id="nav">
+            <a href="shop.html" class="active">All Products</a>
+            <a href="shop.html?cat=shirts">Shirts</a>
+            <a href="shop.html?cat=tshirts">T-Shirts</a>
+            <a href="shop.html?cat=denim">Denim</a>
+        </nav>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </button>
+            <button class="cart-btn" id="cartBtn" aria-label="Cart">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Nav Overlay -->
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- Search Overlay -->
+<div class="search-overlay" id="searchOverlay">
+    <div class="search-inner">
+        <input type="text" placeholder="Search Trendings..." class="search-input" id="searchInput">
+        <button class="search-close" id="searchClose">&times;</button>
+    </div>
+</div>
+
+<!-- Cart Drawer -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+        <h3>Your Bag</h3>
+        <button class="cart-close" id="cartClose">&times;</button>
+    </div>
+    <div class="cart-body" id="cartBody">
+        <p class="cart-empty">Your bag is empty.</p>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none;">
+        <div class="cart-total">
+            <span>Total</span>
+            <span id="cartTotal">৳0</span>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="alert('Checkout coming soon!')">Checkout</button>
+    </div>
+</aside>
+
+<!-- Quick Add Popup -->
+<div class="quickadd-overlay" id="quickaddOverlay"></div>
+<div class="quickadd-popup" id="quickaddPopup">
+    <button class="quickadd-close" id="quickaddClose">&times;</button>
+    <div class="quickadd-content">
+        <div class="quickadd-img-wrap">
+            <img id="quickaddImg" src="" alt="">
+        </div>
+        <div class="quickadd-details">
+            <span class="product-brand" id="quickaddBrand">TRENDINGS</span>
+            <h3 id="quickaddName">Product Name</h3>
+            <p class="quickadd-price" id="quickaddPrice">৳0</p>
+            <div class="quickadd-sizes">
+                <p>Size</p>
+                <div class="size-options" id="quickaddSizes">
+                    <button class="size-btn active">S</button>
+                    <button class="size-btn">M</button>
+                    <button class="size-btn">L</button>
+                    <button class="size-btn">XL</button>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-full" id="quickaddConfirm">Add to Bag</button>
+            <a href="#" class="quickadd-view-link" id="quickaddViewLink">View full details →</a>
+        </div>
+    </div>
+</div>
+
+<!-- Shop Header -->
+<section class="shop-hero">
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span>/</span>
+            <span id="breadcrumbCurrent">All Products</span>
+        </nav>
+        <h1 class="shop-title" id="shopTitle">All Products</h1>
+        <p class="shop-subtitle" id="shopSubtitle">14 products</p>
+    </div>
+</section>
+
+<!-- Filter Bar -->
+<section class="filter-bar">
+    <div class="container">
+        <div class="filter-bar-inner">
+            <div class="filter-tabs" id="filterTabs">
+                <button class="filter-tab active" data-filter="all">All (14)</button>
+                <button class="filter-tab" data-filter="shirts">Shirts (4)</button>
+                <button class="filter-tab" data-filter="tshirts">T-Shirts (4)</button>
+                <button class="filter-tab" data-filter="denim">Denim (4)</button>
+            </div>
+            <div class="sort-select">
+                <select id="sortSelect">
+                    <option value="default">Sort by</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="name">Name: A–Z</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Products Grid -->
+<section class="shop-section">
+    <div class="container">
+        <div class="shop-grid" id="shopGrid">
+            <!-- Products rendered by JS -->
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="footer-logo">TRENDINGS</a>
+                <p class="footer-desc">Premium menswear — shirts, t-shirts, and wide leg denim — sourced from the same factories, priced without the journey.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Shop</h4>
+                <a href="shop.html?cat=shirts">Shirts</a>
+                <a href="shop.html?cat=tshirts">T-Shirts</a>
+                <a href="shop.html?cat=denim">Wide Leg Denim</a>
+            </div>
+            <div class="footer-col">
+                <h4>Help</h4>
+                <a href="#">Size Guide</a>
+                <a href="#">Shipping & Returns</a>
+                <a href="#">FAQ</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">WhatsApp</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Trendings. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+// Product data
+const products = [
+    // Shirts
+    { id: 1, slug: "oversized-linen-shirt-white", cat: "shirts", brand: "Trendings", name: "Oversized Linen Shirt — White", price: 1895, badge: "", image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&q=80" },
+    { id: 2, slug: "relaxed-cotton-shirt-black", cat: "shirts", brand: "Trendings", name: "Relaxed Cotton Shirt — Black", price: 1695, badge: "", image: "https://images.unsplash.com/photo-1607345366928-199ea26cfe3e?w=800&q=80" },
+    { id: 3, slug: "striped-oxford-shirt-blue", cat: "shirts", brand: "Trendings", name: "Striped Oxford Shirt — Blue", price: 1995, badge: "", image: "https://images.unsplash.com/photo-1621072156002-e2fccdc0b176?w=800&q=80" },
+    { id: 4, slug: "brushed-flannel-shirt-beige", cat: "shirts", brand: "Trendings", name: "Brushed Flannel Shirt — Beige", price: 2195, badge: "", image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&q=80" },
+    // T-Shirts
+    { id: 5, slug: "heavyweight-tee-white", cat: "tshirts", brand: "Trendings", name: "Heavyweight Tee — White", price: 995, badge: "Best Seller", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80" },
+    { id: 6, slug: "boxy-tee-black", cat: "tshirts", brand: "Trendings", name: "Boxy Tee — Black", price: 995, badge: "", image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&q=80" },
+    { id: 7, slug: "washed-pocket-tee-olive", cat: "tshirts", brand: "Trendings", name: "Washed Pocket Tee — Olive", price: 1195, badge: "New", image: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800&q=80" },
+    { id: 8, slug: "stripe-tee-navy-white", cat: "tshirts", brand: "Trendings", name: "Stripe Tee — Navy/White", price: 1295, badge: "", image: "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=800&q=80" },
+    // Denim
+    { id: 9, slug: "wide-leg-jeans-stone-wash", cat: "denim", brand: "Trendings", name: "Wide Leg Jeans — Stone Wash", price: 2495, badge: "New", image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800&q=80" },
+    { id: 10, slug: "wide-leg-jeans-dark-indigo", cat: "denim", brand: "Trendings", name: "Wide Leg Jeans — Dark Indigo", price: 2695, badge: "New", image: "https://images.unsplash.com/photo-1582552938357-32b906df40cb?w=800&q=80" },
+    { id: 11, slug: "wide-leg-jeans-jet-black", cat: "denim", brand: "Trendings", name: "Wide Leg Jeans — Jet Black", price: 2595, badge: "", image: "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=800&q=80" },
+    { id: 12, slug: "wide-leg-jeans-washed-blue", cat: "denim", brand: "Trendings", name: "Wide Leg Jeans — Washed Blue", price: 2395, badge: "Popular", image: "https://images.unsplash.com/photo-1475178626620-a4d07b4aa000?w=800&q=80" },
+];
+
+let currentFilter = 'all';
+let currentSort = 'default';
+
+function renderProducts() {
+    let filtered = currentFilter === 'all'
+        ? [...products]
+        : products.filter(p => p.cat === currentFilter);
+
+    // Sort
+    if (currentSort === 'price-low') filtered.sort((a, b) => a.price - b.price);
+    else if (currentSort === 'price-high') filtered.sort((a, b) => b.price - a.price);
+    else if (currentSort === 'name') filtered.sort((a, b) => a.name.localeCompare(b.name));
+
+    const grid = document.getElementById('shopGrid');
+    grid.innerHTML = filtered.map(p => `
+        <a href="product.html?slug=${p.slug}" class="product-card shop-product-card">
+            <div class="product-img-wrap">
+                ${p.badge ? `<span class="badge">${p.badge}</span>` : ''}
+                <img src="${p.image}" alt="${p.name}" loading="lazy">
+            </div>
+            <div class="product-info">
+                <span class="product-brand">${p.brand}</span>
+                <div class="product-name-row">
+                    <span class="product-name">${p.name}</span>
+                    <button class="quick-add-btn" data-slug="${p.slug}" data-name="${encodeURIComponent(p.name)}" data-price="${p.price}" data-image="${encodeURIComponent(p.image)}" aria-label="Quick add" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('${p.slug}', '${encodeURIComponent(p.name)}', ${p.price}, '${encodeURIComponent(p.image)}');">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                </div>
+                <span class="product-price">৳${p.price.toLocaleString()}</span>
+            </div>
+        </a>
+    `).join('');
+
+    // Update counts
+    document.getElementById('shopSubtitle').textContent = `${filtered.length} product${filtered.length !== 1 ? 's' : ''}`;
+}
+
+// Filter tabs
+document.getElementById('filterTabs').addEventListener('click', (e) => {
+    if (!e.target.classList.contains('filter-tab')) return;
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    e.target.classList.add('active');
+    currentFilter = e.target.dataset.filter;
+
+    const titles = { all: 'All Products', shirts: 'Shirts', tshirts: 'T-Shirts', denim: 'Wide Leg Denim' };
+    document.getElementById('shopTitle').textContent = titles[currentFilter];
+    document.getElementById('breadcrumbCurrent').textContent = titles[currentFilter];
+
+    renderProducts();
+});
+
+// Sort
+document.getElementById('sortSelect').addEventListener('change', (e) => {
+    currentSort = e.target.value;
+    renderProducts();
+});
+
+// URL param filter
+const urlParams = new URLSearchParams(window.location.search);
+const catParam = urlParams.get('cat');
+if (catParam && ['shirts', 'tshirts', 'denim'].includes(catParam)) {
+    currentFilter = catParam;
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    document.querySelector(`.filter-tab[data-filter="${catParam}"]`)?.classList.add('active');
+    const titles = { shirts: 'Shirts', tshirts: 'T-Shirts', denim: 'Wide Leg Denim' };
+    document.getElementById('shopTitle').textContent = titles[catParam];
+    document.getElementById('breadcrumbCurrent').textContent = titles[catParam];
+}
+
+renderProducts();
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>
