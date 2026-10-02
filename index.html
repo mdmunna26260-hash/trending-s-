@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trendings — Wide Leg Denim Pants, Shirts & T-Shirts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+    <span>Free delivery on orders over ৳3,000</span>
+    <div class="top-bar-links">
+        <a href="#">WhatsApp</a>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+    </div>
+</div>
+
+<!-- Header / Navbar -->
+<header class="header" id="header">
+    <div class="header-inner">
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <a href="index.html" class="logo">TRENDINGS</a>
+        <nav class="nav" id="nav">
+            <a href="shop.html">All Products</a>
+            <a href="shop.html?cat=shirts">Shirts</a>
+            <a href="shop.html?cat=tshirts">T-Shirts</a>
+            <a href="shop.html?cat=denim">Denim</a>
+        </nav>
+        <div class="header-actions">
+            <button class="search-btn" id="searchBtn" aria-label="Search">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </button>
+            <button class="cart-btn" id="cartBtn" aria-label="Cart">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Nav Overlay -->
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- Search Overlay -->
+<div class="search-overlay" id="searchOverlay">
+    <div class="search-inner">
+        <input type="text" placeholder="Search Trendings..." class="search-input" id="searchInput">
+        <button class="search-close" id="searchClose">&times;</button>
+    </div>
+</div>
+
+<!-- Cart Drawer -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+        <h3>Your Bag</h3>
+        <button class="cart-close" id="cartClose">&times;</button>
+    </div>
+    <div class="cart-body" id="cartBody">
+        <p class="cart-empty">Your bag is empty.</p>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none;">
+        <div class="cart-total">
+            <span>Total</span>
+            <span id="cartTotal">৳0</span>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="alert('Checkout coming soon!')">Checkout</button>
+    </div>
+</aside>
+
+<!-- Quick Add Popup -->
+<div class="quickadd-overlay" id="quickaddOverlay"></div>
+<div class="quickadd-popup" id="quickaddPopup">
+    <button class="quickadd-close" id="quickaddClose">&times;</button>
+    <div class="quickadd-content">
+        <div class="quickadd-img-wrap">
+            <img id="quickaddImg" src="" alt="">
+        </div>
+        <div class="quickadd-details">
+            <span class="product-brand" id="quickaddBrand">TRENDINGS</span>
+            <h3 id="quickaddName">Product Name</h3>
+            <p class="quickadd-price" id="quickaddPrice">৳0</p>
+            <div class="quickadd-sizes">
+                <p>Size</p>
+                <div class="size-options" id="quickaddSizes">
+                    <button class="size-btn active">S</button>
+                    <button class="size-btn">M</button>
+                    <button class="size-btn">L</button>
+                    <button class="size-btn">XL</button>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-full" id="quickaddConfirm">Add to Bag</button>
+            <a href="#" class="quickadd-view-link" id="quickaddViewLink">View full details →</a>
+        </div>
+    </div>
+</div>
+
+<!-- Hero Section — Zara Style -->
+<section class="hero" id="hero">
+    <div class="hero-bg">
+        <img src="https://images.unsplash.com/photo-1516826957135-700dedea698c?w=2000&q=80" alt="Man in wide leg denim and shirt walking on street" loading="eager">
+    </div>
+    <div class="hero-content">
+        <p class="hero-label">SS26 Collection</p>
+        <h1 class="hero-title">TRENDINGS</h1>
+        <p class="hero-sub">Shirts · T-Shirts · Wide Leg Denim</p>
+        <div class="hero-buttons">
+            <a href="shop.html" class="hero-btn">Shop All</a>
+            <a href="shop.html?cat=shirts" class="hero-btn">Shirts</a>
+            <a href="shop.html?cat=denim" class="hero-btn">Denim</a>
+        </div>
+    </div>
+    <div class="hero-scroll-hint">
+        <span>Scroll</span>
+        <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="1" width="8" height="14" rx="4"/><line x1="8" y1="5" x2="8" y2="8"/><path d="M1 18l3 3 3-3"/></svg>
+    </div>
+</section>
+
+<!-- Featured Text -->
+<section class="featured-text">
+    <div class="container">
+        <h2>Made in the same factories. <em>Priced without the journey.</em></h2>
+        <p>Every production run makes a few extra pieces. Those stay in the country. The brand's own labels, sewn in. About a third of the retail price abroad.</p>
+    </div>
+</section>
+
+<!-- Shirts Section -->
+<section class="section" id="shirts">
+    <div class="section-header container">
+        <div>
+            <p class="section-label">01 — Shirts</p>
+            <h2 class="section-title">Shirts</h2>
+        </div>
+        <a href="shop.html?cat=shirts" class="section-link">View all →</a>
+    </div>
+    <div class="product-grid container">
+        <a href="product.html?slug=oversized-linen-shirt-white" class="product-card" data-slug="oversized-linen-shirt-white">
+            <div class="product-img-wrap">
+                <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&q=80" alt="White linen shirt" loading="lazy">
+            </div>
+            <div class="product-info">
+                <span class="product-brand">Trendings</span>
+                <div class="product-name-row">
+                    <span class="product-name">Oversized Linen Shirt — White</span>
+                    <button class="quick-add-btn" data-slug="oversized-linen-shirt-white" aria-label="Quick add">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                </div>
+                <span class="product-price">৳1,895</span>
+            </div>
+        </a>
+        <a href="product.html?slug=relaxed-cotton-shirt-black" class="product-card" data-slug="relaxed-cotton-shirt-black">
+            <div class="product-img-wrap">
+                <img src="https://images.unsplash.com/photo-1607345366928-199ea26cfe3e?w=800&q=80" alt="Black cotton shirt" loading="lazy">
+            </div>
+            <div class="product-info">
+                <span class="product-brand">Trendings</span>
+                <div class="product-name-row">
+                    <span class="product-name">Relaxed Cotton Shirt — Black</span>
+                    <button class="quick-add-btn" data-slug="relaxed-cotton-shirt-black" aria-label="Quick add">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                </div>
+                <span class="product-price">৳1,695</span>
+            </div>
+        </a>
+        <a href="product.html?slug=striped-oxford-shirt-blue" class="product-card" data-slug="striped-oxford-shirt-blue">
+            <div class="product-img-wrap">
+                <img src="https://images.unsplash.com/photo-1621072156002-e2fccdc0b176?w=800&q=80" alt="Blue striped oxford shirt" loading="lazy">
+            </div>
+            <div class="product-info">
+                <span class="product-brand">Trendings</span>
+                <div class="product-name-row">
+                    <span class="product-name">Striped Oxford Shirt — Blue</span>
+                    <button class="quick-add-btn" data-slug="striped-oxford-shirt-blue" aria-label="Quick add">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                </div>
+                <span class="product-price">৳1,995</span>
+            </div>
+        </a>
+        <a href="product.html?slug=brushed-flannel-shirt-beige" class="product-card" data-slug="brushed-flannel-shirt-beige">
+            <div class="product-img-wrap">
+                <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&q=80" alt="Beige flannel shirt" loading="lazy">
+            </div>
+            <div class="product-info">
+                <span class="product-brand">Trendings</span>
+                <div class="product-name-row">
+                    <span class="product-name">Brushed Flannel Shirt — Beige</span>
+                    <button class="quick-add-btn" data-slug="brushed-flannel-shirt-beige" aria-label="Quick add">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                </div>
+                <span class="product-price">৳2,195</span>
+            </div>
+        </a>
+    </div>
+</section>
+
+<!-- Lookbook / Editorial Banner -->
+<section class="lookbook">
+    <div class="lookbook-img">
+        <img src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=1600&q=80" alt="Man in shirt and denim on coastal road" loading="lazy">
+    </div>
+    <div class="lookbook-content">
+        <p class="lookbook-label">Look 01 · The linen edit</p>
+        <h2>Two shirts, one coast road.</h2>
+    </div>
+</section>
+
+<!-- T-Shirts Section -->
+<section class="section" id="tshirts">
+    <div class="section-header container">
+        <div>
+            <p class="section-label">02 — T-Shirts</p>
+            <h2 class="section-title">T-Shirts</h2>
+        </div>
+        <a href="shop.html?cat=tshirts" class="section-link">View all →</a>
+    </div>
+    <div class="product-grid container">
+        <a href="product.html?slug=heavyweight-tee-white" class="product-card" data-slug="heavyweight-tee-white">
+            <div class="product-img-wrap">
+                <span class="badge">Best Seller</span>
+                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80" alt="White heavyweight tee" loading="lazy">
+            </div>
+            <div class="product-info">
+                <span class="product-brand">Trendings</span>
+                <div class="product-name-row">
+                    <span class="product-name">Heavyweight Tee — White</span>
+                    <button class="quick-add-btn" data-slug="heavyweight-tee-white" aria-label="Quick add">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                </div>
+                <span class="product-price">৳995</span>
+            </div>
+        </a>
+        <a href="product.html?slug=boxy-tee-black" class="product-card" data-slug="boxy-tee-black">
+            <div class="product-img-wrap">
+                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&q=80" alt="Black boxy tee" loading="lazy">
+            </div>
+            <div class="product-info">
+                <span class="product-brand">Trendings</span>
+                <div class="product-name-row">
+                    <span class="product-name">Boxy Tee — Black</span>
+                    <button class="quick-add-btn" data-slug="boxy-tee-black" aria-label="Quick add">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                </div>
+                <span class="product-price">৳995</span>
+            </div>
+        </a>
+        <a href="product.html?slug=washed-pocket-tee-olive" class="product-card" data-slug="washed-pocket-tee-olive">
+            <div class="product-img-wrap">
+                <span class="badge">New</span>
+                <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800&q=80" alt="Olive washed pocket tee" loading="lazy">
+            </div>
+            <div class="product-info">
+                <span class="product-brand">Trendings</span>
+                <div class="product-name-row">
+                    <span class="product-name">Washed Pocket Tee — Olive</span>
+                    <button class="quick-add-btn" data-slug="washed-pocket-tee-olive" aria-label="Quick add">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                </div>
+                <span class="product-price">৳1,195</span>
+            </div>
+        </a>
+        <a href="product.html?slug=stripe-tee-navy-white" class="product-card" data-slug="stripe-tee-navy-white">
+            <div class="product-img-wrap">
+                <img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?w=800&q=80" alt="Navy and white stripe tee" loading="lazy">
+            </div>
+            <div class="product-info">
+                <span class="product-brand">Trendings</span>
+                <div class="product-name-row">
+                    <span class="product-name">Stripe Tee — Navy/White</span>
+                    <button class="quick-add-btn" data-slug="stripe-tee-navy-white" aria-label="Quick add">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                </div>
+                <span class="product-price">৳1,295</span>
+            </div>
+        </a>
+    </div>
+</section>
+
+<!-- Denim Section -->
+<section class="section" id="denim">
+    <div class="denim-hero">
+        <img src="https://images.unsplash.com/photo-1542272454315-4c01d7abdf4a?w=2000&q=80" alt="Close up of wide leg denim" loading="lazy">
+        <div class="denim-hero-content">
+            <p class="section-label">New department</p>
+            <h2>Wide leg denim has arrived.</h2>
+            <p>Relaxed silhouettes. Broken-in washes. Made to drape, not cling.</p>
+            <a href="shop.html?cat=denim" class="btn btn-white">Shop pants</a>
+        </div>
+    </div>
+    <div class="section-header container">
+        <div>
+            <p class="section-label">03 — Denim</p>
+            <h2 class="section-title">Wide Leg Denim</h2>
+        </div>
+        <a href="shop.html?cat=denim" class="section-link">Shop all →</a>
+    </div>
+    <div class="product-grid container">
+        <a href="product.html?slug=wide-leg-jeans-stone-wash" class="product-card" data-slug="wide-leg-jeans-stone-wash">
+            <div class="product-img-wrap">
+                <span class="badge">New</span>
+                <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800&q=80" alt="Stone wash wide leg jeans" loading="lazy">
+            </div>
+            <div class="product-info">
+                <span class="product-brand">Trendings</span>
+                <div class="product-name-row">
+                    <span class="product-name">Wide Leg Jeans — Stone Wash</span>
+                    <button class="quick-add-btn" data-slug="wide-leg-jeans-stone-wash" aria-label="Quick add">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                </div>
+                <span class="product-price">৳2,495</span>
+            </div>
+        </a>
+        <a href="product.html?slug=wide-leg-jeans-dark-indigo" class="product-card" data-slug="wide-leg-jeans-dark-indigo">
+            <div class="product-img-wrap">
+                <span class="badge">New</span>
+                <img src="https://images.unsplash.com/photo-1582552938357-32b906df40cb?w=800&q=80" alt="Dark indigo wide leg jeans" loading="lazy">
+            </div>
+            <div class="product-info">
+                <span class="product-brand">Trendings</span>
+                <div class="product-name-row">
+                    <span class="product-name">Wide Leg Jeans — Dark Indigo</span>
+                    <button class="quick-add-btn" data-slug="wide-leg-jeans-dark-indigo" aria-label="Quick add">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                </div>
+                <span class="product-price">৳2,695</span>
+            </div>
+        </a>
+        <a href="product.html?slug=wide-leg-jeans-jet-black" class="product-card" data-slug="wide-leg-jeans-jet-black">
+            <div class="product-img-wrap">
+                <img src="https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=800&q=80" alt="Jet black wide leg jeans" loading="lazy">
+            </div>
+            <div class="product-info">
+                <span class="product-brand">Trendings</span>
+                <div class="product-name-row">
+                    <span class="product-name">Wide Leg Jeans — Jet Black</span>
+                    <button class="quick-add-btn" data-slug="wide-leg-jeans-jet-black" aria-label="Quick add">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                </div>
+                <span class="product-price">৳2,595</span>
+            </div>
+        </a>
+        <a href="product.html?slug=wide-leg-jeans-washed-blue" class="product-card" data-slug="wide-leg-jeans-washed-blue">
+            <div class="product-img-wrap">
+                <span class="badge">Popular</span>
+                <img src="https://images.unsplash.com/photo-1475178626620-a4d07b4aa000?w=800&q=80" alt="Washed blue wide leg jeans" loading="lazy">
+            </div>
+            <div class="product-info">
+                <span class="product-brand">Trendings</span>
+                <div class="product-name-row">
+                    <span class="product-name">Wide Leg Jeans — Washed Blue</span>
+                    <button class="quick-add-btn" data-slug="wide-leg-jeans-washed-blue" aria-label="Quick add">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                </div>
+                <span class="product-price">৳2,395</span>
+            </div>
+        </a>
+    </div>
+</section>
+
+<!-- Lookbook 2 -->
+<section class="lookbook lookbook-right">
+    <div class="lookbook-img">
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600&q=80" alt="Denim lifestyle shot" loading="lazy">
+    </div>
+    <div class="lookbook-content">
+        <p class="lookbook-label">Look 02 · Wide leg essentials</p>
+        <h2>Three pairs, one denim story.</h2>
+    </div>
+</section>
+
+<!-- Price Explainer -->
+<section class="explainer" id="about">
+    <div class="container">
+        <p class="section-label">The price, explained</p>
+        <h2 class="explainer-title">Made in the same factories. <em>Priced without the journey.</em></h2>
+        <div class="explainer-grid">
+            <div class="explainer-card">
+                <div class="explainer-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 20h20M5 20V8l7-5 7 5v12"/><path d="M9 20v-6h6v6"/></svg>
+                </div>
+                <h3>Same factories</h3>
+                <p>These houses make much of their shirting and denim in Bangladesh. Every production run makes a few extra pieces. Those stay in the country. The brand's own labels, sewn in.</p>
+            </div>
+            <div class="explainer-card">
+                <div class="explainer-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
+                </div>
+                <h3>No journey</h3>
+                <p>No importer, no import duty, and no retail markup abroad sit between the factory and you.</p>
+            </div>
+            <div class="explainer-card">
+                <div class="explainer-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                </div>
+                <h3>About a third</h3>
+                <p>Of the brand's own retail price abroad. Sizes and colours are limited. When a size is gone, it is gone.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter">
+    <div class="container">
+        <h2>Stay in the loop.</h2>
+        <p>New drops, restocks, and limited pieces — straight to your inbox.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Subscribed ✓'; this.querySelector('input').value='';">
+            <input type="email" placeholder="Your email address" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="footer-logo">TRENDINGS</a>
+                <p class="footer-desc">Premium menswear — shirts, t-shirts, and wide leg denim — sourced from the same factories, priced without the journey.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Shop</h4>
+                <a href="shop.html?cat=shirts">Shirts</a>
+                <a href="shop.html?cat=tshirts">T-Shirts</a>
+                <a href="shop.html?cat=denim">Wide Leg Denim</a>
+            </div>
+            <div class="footer-col">
+                <h4>Help</h4>
+                <a href="#">Size Guide</a>
+                <a href="#">Shipping & Returns</a>
+                <a href="#">FAQ</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">WhatsApp</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Trendings. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
